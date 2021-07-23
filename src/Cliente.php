@@ -71,6 +71,8 @@ class Cliente extends Core
             $this->curl->close();
 
             return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
         } catch (\Throwable $except) {
             return $except->getMessage();
         }
@@ -95,6 +97,8 @@ class Cliente extends Core
             $this->curl->close();
 
             return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
         } catch (\Throwable $except) {
             return $except->getMessage();
         }
@@ -117,6 +121,8 @@ class Cliente extends Core
             $this->curl->close();
 
             return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
         } catch (\Throwable $except) {
             return $except->getMessage();
         }

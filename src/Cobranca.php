@@ -53,6 +53,8 @@ class Cobranca extends Core
             $this->curl->close();
 
             return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
         } catch (\Throwable $except) {
             return $except->getMessage();
         }
@@ -79,6 +81,8 @@ class Cobranca extends Core
             $this->curl->close();
 
             return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
         } catch (\Throwable $except) {
             return $except->getMessage();
         }
@@ -103,6 +107,8 @@ class Cobranca extends Core
             $this->curl->close();
 
             return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
         } catch (\Throwable $except) {
             return $except->getMessage();
         }
