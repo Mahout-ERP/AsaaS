@@ -18,32 +18,32 @@ class Core
         $this->token = $token;
     }
 
-    public function getBaseUrl(): string
+    public function getBaseUrl()
     {
         return $this->baseUrl;
     }
 
-    public function setBaseUrl(string $baseUrl)
+    public function setBaseUrl($baseUrl)
     {
         $this->baseUrl = $baseUrl;
     }
 
-    public function getToken(): string
+    public function getToken()
     {
         return $this->token;
     }
 
-    public function setToken(string $token)
+    public function setToken($token)
     {
         $this->token = $token;
     }
 
-    public function getUrl(): string
+    public function getUrl()
     {
         return $this->url;
     }
 
-    public function setUrl(string $url)
+    public function setUrl($url)
     {
         $this->url = $url;
     }

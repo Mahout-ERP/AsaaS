@@ -35,7 +35,7 @@ class Cobranca extends Core
         return !empty($vet) ? $vet : '';
     }
 
-    public function get(string $id): object
+    public function get($id)
     {
         try {
             $url = $this->getBaseUrl() . '/payments/' . $id;
@@ -60,7 +60,7 @@ class Cobranca extends Core
         }
     }
 
-    public function listar(int $limit = 10, int $offset = 0)
+    public function listar($limit = 10, $offset = 0)
     {
         try {
             $url = $this->getBaseUrl() . '/payments';

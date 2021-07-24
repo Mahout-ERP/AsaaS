@@ -4,7 +4,7 @@
     "type": "library",
     "keywords": ["Mahout-ERP", "AsaaS"],
     "license": "proprietary",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "authors": [
         {
             "email": "ti@mahout.com.br",
