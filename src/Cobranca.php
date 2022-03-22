@@ -15,7 +15,78 @@ class Cobranca extends Core
 
     public function __construct($baseUrl, $token)
     {
+        $this->entity = 'payments';
         parent::__construct($baseUrl, $token);
+    }
+
+    public function getBillingType()
+    {
+        return $this->billingType;
+    }
+
+    public function setBillingType($billingType)
+    {
+        $this->billingType = $billingType;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer($customer)
+    {
+        $this->customer = $customer;
+    }
+
+    public function getExternalReference()
+    {
+        return $this->externalReference;
+    }
+
+    public function setExternalReference($externalReference)
+    {
+        $this->externalReference = $externalReference;
+    }
+
+    public function getInstallment()
+    {
+        return $this->installment;
+    }
+
+    public function setInstallment($installment)
+    {
+        $this->installment = $installment;
+    }
+
+    public function getPaymentDate()
+    {
+        return $this->paymentDate;
+    }
+
+    public function setPaymentDate($paymentDate)
+    {
+        $this->paymentDate = $paymentDate;
+    }
+
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
     }
 
     public function reset()
@@ -26,91 +97,5 @@ class Cobranca extends Core
         $externalReference = null;
         $installment = null;
         $paymentDate = null;
-    }
-
-    public function filter()
-    {
-        $vet = '';
-
-        return !empty($vet) ? $vet : '';
-    }
-
-    public function get($id)
-    {
-        try {
-            $url = $this->getBaseUrl() . '/payments/' . $id;
-
-            $this->setUrl($url);
-
-            $this->curl = new Curl();
-            $this->curl->setHeader('Accept', 'application/json');
-            $this->curl->setHeader('Content-Type', 'application/json');
-            $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->get($url);
-
-            $response = $this->curl->response;
-
-            $this->curl->close();
-
-            return $response;
-        } catch (\Exception $except) {
-            return $except->getMessage();
-        } catch (\Throwable $except) {
-            return $except->getMessage();
-        }
-    }
-
-    public function listar($limit = 10, $offset = 0)
-    {
-        try {
-            $url = $this->getBaseUrl() . '/payments';
-            $url .= '?limit=' . $limit;
-            $url .= '&offset=' . $offset;
-            $url .= $this->filter();
-
-            $this->setUrl($url);
-
-            $this->curl = new Curl();
-            $this->curl->setHeader('Accept', 'application/json');
-            $this->curl->setHeader('Content-Type', 'application/json');
-            $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->get($url);
-
-            $response = $this->curl->response;
-
-            $this->curl->close();
-
-            return $response;
-        } catch (\Exception $except) {
-            return $except->getMessage();
-        } catch (\Throwable $except) {
-            return $except->getMessage();
-        }
-    }
-
-    public function inserir($data)
-    {
-        try {
-            $url = $this->getBaseUrl() . '/payments';
-
-            $this->setUrl($url);
-            $this->setData($data);
-
-            $this->curl = new Curl();
-            $this->curl->setHeader('Accept', 'application/json');
-            $this->curl->setHeader('Content-Type', 'application/json');
-            $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->post($url, $data);
-
-            $response = $this->curl->response;
-
-            $this->curl->close();
-
-            return $response;
-        } catch (\Exception $except) {
-            return $except->getMessage();
-        } catch (\Throwable $except) {
-            return $except->getMessage();
-        }
     }
 }

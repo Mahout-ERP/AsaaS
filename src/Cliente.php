@@ -11,6 +11,7 @@ class Cliente extends Core
 
     public function __construct($baseUrl, $token)
     {
+        $this->entity = 'customers';
         parent::__construct($baseUrl, $token);
     }
 
@@ -53,78 +54,5 @@ class Cliente extends Core
         }
 
         return !empty($vet) ? $vet : '';
-    }
-
-    public function get($id)
-    {
-        try {
-            $url = $this->getBaseUrl() . '/customers/' . $id;
-
-            $this->setUrl($url);
-
-            $this->curl = new Curl();
-            $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->get($url);
-
-            $response = $this->curl->response;
-
-            $this->curl->close();
-
-            return $response;
-        } catch (\Exception $except) {
-            return $except->getMessage();
-        } catch (\Throwable $except) {
-            return $except->getMessage();
-        }
-    }
-
-    public function listar($limit = 10, $offset = 0)
-    {
-        try {
-            $url = $this->getBaseUrl() . '/customers';
-            $url .= '?limit=' . $limit;
-            $url .= '&offset=' . $offset;
-            $url .= $this->filter();
-
-            $this->setUrl($url);
-
-            $this->curl = new Curl();
-            $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->get($url);
-
-            $response = $this->curl->response;
-
-            $this->curl->close();
-
-            return $response;
-        } catch (\Exception $except) {
-            return $except->getMessage();
-        } catch (\Throwable $except) {
-            return $except->getMessage();
-        }
-    }
-
-    public function inserir($data)
-    {
-        try {
-            $url = $this->getBaseUrl() . '/customers';
-
-            $this->setUrl($url);
-            $this->setData($data);
-
-            $this->curl = new Curl();
-            $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->post($url, $data);
-
-            $response = $this->curl->response;
-
-            $this->curl->close();
-
-            return $response;
-        } catch (\Exception $except) {
-            return $except->getMessage();
-        } catch (\Throwable $except) {
-            return $except->getMessage();
-        }
     }
 }

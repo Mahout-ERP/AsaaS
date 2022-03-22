@@ -6,6 +6,7 @@ use Curl\Curl;
 
 class Core
 {
+    protected $entity;
     protected $baseUrl;
     protected $token;
     protected $curl;
@@ -16,6 +17,16 @@ class Core
     {
         $this->baseUrl = $baseUrl;
         $this->token = $token;
+    }
+
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
     }
 
     public function getBaseUrl()
@@ -61,5 +72,86 @@ class Core
     public function getCurl()
     {
         return $this->curl;
+    }
+
+    public function filter()
+    {
+        $vet = '';
+
+        return !empty($vet) ? $vet : '';
+    }
+
+    public function getRequest($url)
+    {
+        $json = 'application/json';
+
+        $this->setUrl($url);
+
+        $this->curl = new Curl();
+        $this->curl->setHeader('Accept', $json);
+        $this->curl->setHeader('Content-Type', $json);
+        $this->curl->setHeader('access_token', $this->getToken());
+        $this->curl->get($url);
+
+        $response = $this->curl->response;
+
+        $this->curl->close();
+
+        return $response;
+    }
+
+    public function get($id)
+    {
+        try {
+            $url = $this->getBaseUrl() . '/' . $this->getEntity() . '/' . $id;
+            return $this->getRequest($url);
+        } catch (\Exception $except) {
+            return $except->getMessage();
+        } catch (\Throwable $except) {
+            return $except->getMessage();
+        }
+    }
+
+    public function listar($limit = 10, $offset = 0)
+    {
+        try {
+            $url = $this->getBaseUrl() . '/' . $this->getEntity();
+            $url .= '?limit=' . $limit;
+            $url .= '&offset=' . $offset;
+            $url .= $this->filter();
+
+            return $this->getRequest($url);
+        } catch (\Exception $except) {
+            return $except->getMessage();
+        } catch (\Throwable $except) {
+            return $except->getMessage();
+        }
+    }
+
+    public function inserir($data)
+    {
+        try {
+            $json = 'application/json';
+            $url = $this->getBaseUrl() . '/' . $this->getEntity();
+
+            $this->setUrl($url);
+            $this->setData($data);
+
+            $this->curl = new Curl();
+            $this->curl->setHeader('Accept', $json);
+            $this->curl->setHeader('Content-Type', $json);
+            $this->curl->setHeader('access_token', $this->getToken());
+            $this->curl->post($url, $data);
+
+            $response = $this->curl->response;
+
+            $this->curl->close();
+
+            return $response;
+        } catch (\Exception $except) {
+            return $except->getMessage();
+        } catch (\Throwable $except) {
+            return $except->getMessage();
+        }
     }
 }
