@@ -79,23 +79,13 @@ class Cobranca extends Core
         $this->paymentDate = $paymentDate;
     }
 
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-    }
-
     public function reset()
     {
-        $billingType = null;
-        $status = null;
-        $customer = null;
-        $externalReference = null;
-        $installment = null;
-        $paymentDate = null;
+        $this->billingType = null;
+        $this->status = null;
+        $this->customer = null;
+        $this->externalReference = null;
+        $this->installment = null;
+        $this->paymentDate = null;
     }
 }
