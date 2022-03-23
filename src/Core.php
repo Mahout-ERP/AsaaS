@@ -81,17 +81,15 @@ class Core
         return !empty($vet) ? $vet : '';
     }
 
-    public function getRequest($url)
+    public function getRequest()
     {
         $json = 'application/json';
-
-        $this->setUrl($url);
 
         $this->curl = new Curl();
         $this->curl->setHeader('Accept', $json);
         $this->curl->setHeader('Content-Type', $json);
         $this->curl->setHeader('access_token', $this->getToken());
-        $this->curl->get($url);
+        $this->curl->get($this->getUrl());
 
         $response = $this->curl->response;
 
@@ -103,8 +101,8 @@ class Core
     public function get($id)
     {
         try {
-            $url = $this->getBaseUrl() . '/' . $this->getEntity() . '/' . $id;
-            return $this->getRequest($url);
+            $this->setUrl($this->getBaseUrl() . '/' . $this->getEntity() . '/' . $id);
+            return $this->getRequest();
         } catch (\Exception $except) {
             return $except->getMessage();
         } catch (\Throwable $except) {
@@ -120,7 +118,9 @@ class Core
             $url .= '&offset=' . $offset;
             $url .= $this->filter();
 
-            return $this->getRequest($url);
+            $this->setUrl($url);
+
+            return $this->getRequest();
         } catch (\Exception $except) {
             return $except->getMessage();
         } catch (\Throwable $except) {
@@ -132,16 +132,15 @@ class Core
     {
         try {
             $json = 'application/json';
-            $url = $this->getBaseUrl() . '/' . $this->getEntity();
 
-            $this->setUrl($url);
+            $this->setUrl($this->getBaseUrl() . '/' . $this->getEntity());
             $this->setData($data);
 
             $this->curl = new Curl();
             $this->curl->setHeader('Accept', $json);
             $this->curl->setHeader('Content-Type', $json);
             $this->curl->setHeader('access_token', $this->getToken());
-            $this->curl->post($url, $data);
+            $this->curl->post($this->getUrl(), $data);
 
             $response = $this->curl->response;
 
